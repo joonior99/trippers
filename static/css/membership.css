@@ -1,12 +1,3 @@
-.header {
-    position: fixed;
-}
-
-.header__title {
-    font-size: 20px;
-    margin: auto;
-}
-
 .btn-primary {
     margin: auto;
     width: 360px;
