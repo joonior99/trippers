@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+
+        <!-- Bootstrap CSS -->
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous"
+        />
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"
+        ></script>
+
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/screens/login2.css" />
+        <link rel="stylesheet" href="review.css" />
+        <title>Trippers</title>
+
+    </head>
+
+    <body>
+        <div class="header">
+            <div class="header__write-review"></div>
+            <div class="header__title">TRIPPERS</div>
+            <div class="header__sign-out">OOO님 환영합니다<br>로그아웃</br></div>
+        </div>
+
+        <div class="wrap">
+            <!-- 파일 첨부 -->
+            <div class="my-img"></div>
+            <div class="input-group">
+                <input type="file" class="image_inputType_file" id="customFile" accept="img/*">
+                <label class="custom-file-label" for="customFile">파일을 첨부해 주세요 :)</label>
+            </div>
+
+            <!-- 게시글 내용 -->
+            <div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">여행 장소</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="파리, 에펠탑 . . . etc" >
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">내용</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="8" placeholder="친구와 함께여서 즐거웠던 파리여행!"></textarea>
+                </div>
+                <div class="upload-btn">
+                    <button type="submit-btn" class="btn btn-primary">등 록</button>
+                    <button type="submit-btn" class="btn btn-primary">취 소</button>
+                </div>
+
+            </div>
+        </div>
+
+    </body>
+</html>
