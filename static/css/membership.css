@@ -39,3 +39,8 @@
     display: flex;
     justify-content: space-between;
 }
+
+.login-form__title {
+    text-align: center;
+    font-size: 30px;
+}
