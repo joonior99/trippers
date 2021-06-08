@@ -1,0 +1,38 @@
+.header {
+            position: fixed;
+        }
+        .header__title {
+            font-size: 20px;
+            margin: auto;
+        }
+
+        .btn-primary {
+            margin: auto;
+            width: 360px;
+        }
+
+        .form-id {
+            width: 250px;
+            margin-top: 5px;
+
+        }
+
+        .form-name {
+            margin-top: 5px;
+        }
+        .form-pw {
+            margin-top: 5px;
+        }
+        .form-pwcheck {
+            margin-top: 5px;
+        }
+        .btn-secondary {
+            width: 110px;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .id-double {
+            display: flex;
+            justify-content: space-between;
+        }
