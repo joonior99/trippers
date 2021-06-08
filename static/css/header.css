@@ -1,0 +1,33 @@
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    align-items: center;
+    background-color: #dfe6e9;
+    padding: 20px 0px;
+}
+.header__write-review {
+    width: 33%;
+    height: 50px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 15px;
+}
+.header__title {
+    width: 33%;
+    display: flex;
+    justify-content: center;
+    font-size: 40px;
+    font-weight: 900;
+}
+.header__sign-out {
+    width: 33%;
+    height: 50px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 15px;
+}

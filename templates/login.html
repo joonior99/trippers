@@ -1,10 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/style.css"/>
     <title>Title</title>
 </head>
-<body>
 
+<body>
+{% include 'header.html' %}
+<form id="login-form" class="login-form" method="POST" action="">
+    <h1>Welcome to Trippers</h1>
+    <span>로그인 후 이용할 수 있습니다.</span>
+    <input
+            type="text"
+            name="username"
+            class="login-form__input"
+            placeholder="ID"
+    />
+    <input
+            type="password"
+            name="password"
+            class="login-form__input"
+            placeholder="Password"
+    />
+    <button type="submit" class="login-form__btn">로그인</button>
+    <a href="#" class="login-form__sign-up">회원가입</a>
+</form>
 </body>
+
 </html>
