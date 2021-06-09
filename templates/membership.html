@@ -15,6 +15,7 @@
             integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
             crossorigin="anonymous"
     />
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -24,51 +25,69 @@
             crossorigin="anonymous"
     ></script>
     <script
-
-
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"
     ></script>
 
     <link rel="stylesheet" href="../static/css/style.css"/>
     <title>Trippers</title>
+
+    <script>
+        function sign_up() {
+            let username = $("#username").val();
+            let userid = $("#userid").val();
+            let userpw = $("#userpw").val();
+            let userpw2 = $("#userpw2").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/sign_up/save",
+                data: {
+                    username_give: username,
+                    userid_give: userid,
+                    userpw_give: userpw
+                },
+                success: function (response) {
+                    alert("회원가입되었습니다.");
+                    window.location.replace("/")
+                }
+            });
+        }
+    </script>
 </head>
 
 <body>
 {% include 'header.html' %}
+
 <div class="login-form">
     <div class="login-form__title">환영합니다</div>
     <div class="form-group">
-        <label for="exampleInputEmail1">Name</label>
-        <div class="name"><input
+        <label for="exampleInputPassword1">Name</label>
+        <input
                 type="text"
                 class="form-control form-name"
-                id="write-name"
-                aria-describedby="emailHelp"
-                placeholder="이름"/>
-
-        </div>
-
-
+                id="username"
+                placeholder="이름"
+        />
     </div>
-
     <div class="form-group">
         <label for="exampleInputEmail1">ID</label>
         <div class="id-double"><input
                 type="text"
                 class="form-control form-id"
-                id="write-id"
+                id="userid"
                 aria-describedby="emailHelp"
                 placeholder="아이디"/>
             <button type="button" class="btn btn-secondary">중복확인</button>
         </div>
-
     </div>
-
     <div class="form-group">
         <label for="exampleInputPassword1">Password</label>
         <input
                 type="password"
                 class="form-control form-pw"
-                id="write-pw"
+                id="userpw"
                 placeholder="패스워드"
         />
     </div>
@@ -77,13 +96,12 @@
         <input
                 type="password"
                 class="form-control form-pwcheck"
-                id="write-pwcheck"
+                id="userpw2"
                 placeholder="패스워드 확인"
         />
     </div>
-
     <div class="login-btn">
-        <button type="button" class="btn btn-primary">회원가입</button>
+        <button type="button" class="btn btn-primary" onclick="sign_up()">회원가입</button>
     </div>
 
 </div>

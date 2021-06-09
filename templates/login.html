@@ -3,28 +3,76 @@
 
 <head>
     <meta charset="UTF-8">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+    <!-- CSS -->
     <link rel="stylesheet" href="../static/css/style.css"/>
+
     <title>Title</title>
+
+    <script>
+        function sign_in() {
+            let userid = $("#userid").val();
+            let userpw = $("#userpw").val();
+            console.log(userid, userpw);
+
+            if (userid == "") {
+                alert("아이디를 입력하세요.");
+                $("#userid").focus();
+                return;
+            }
+            if (userpw == "") {
+                alert("비밀번호를 입력하세요.");
+                $("#userpw").focus();
+                return;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/sign_in",
+                data: {
+                    userid_give: userid,
+                    userpw_give: userpw
+                },
+                success: function (response) {
+                    if (response["result"] == "success") {
+                        $.cookie("mytoken", response["token"], {path: "/"});
+                        username = response["username"];
+                        alert(`${username}님 환영합니다.`);
+                        window.location.replace("/");
+                    } else {
+                        alert(response["msg"]);
+                    }
+                }
+            });
+        }
+    </script>
 </head>
 
 <body>
 {% include 'header.html' %}
-<form id="login-form" class="login-form" method="POST" action="">
+
+<form id="login-form" class="login-form">
     <h1>Welcome to Trippers</h1>
     <span>로그인 후 이용할 수 있습니다.</span>
     <input
             type="text"
-            name="username"
+            name="userid"
+            id="userid"
             class="login-form__input"
             placeholder="ID"
     />
     <input
             type="password"
             name="password"
+            id="userpw"
             class="login-form__input"
             placeholder="Password"
     />
-    <button type="submit" class="login-form__btn">로그인</button>
+    <button type="button" class="login-form__btn" onclick="sign_in()">로그인</button>
     <a href="/membership" class="login-form__sign-up">회원가입</a>
 </form>
 </body>

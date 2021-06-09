@@ -48,6 +48,11 @@ a {
     padding: 15px 0px;
     color: white;
     font-weight: 900;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.login-form__btn:hover {
+    background-color: #0069D9;
 }
 
 .login-form__sign-up {
@@ -63,5 +68,5 @@ a {
 }
 
 .login-form__sign-up:hover {
-    color: wheat;
+    color: #0069D9;
 }

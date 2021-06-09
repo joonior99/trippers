@@ -1,6 +1,8 @@
 @import "header.css";
 @import "login.css";
 @import "membership.css";
+@import "mainpage.css";
+@import "review.css";
 
 html,
 body {

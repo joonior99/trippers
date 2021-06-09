@@ -30,20 +30,33 @@
             crossorigin="anonymous"
     ></script>
 
-    <link rel="stylesheet" href="css/style.css"/>
-    <link rel="stylesheet" href="css/mainpage.css"/>
-    <title>Trippers</title>
-    <style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
-    </style>
+    <link rel="stylesheet" href="../static/css/style.css"/>
+    <title>Trippers</title>
+
+    <script>
+        function logout() {
+            $.removeCookie("mytoken");
+            alert("로그아웃 되었습니다.");
+            window.location.href = "/";
+        }
+    </script>
 </head>
 
 <body>
 <nav class="header">
-    <div class="header__write-review"><button type="button" class="btn btn-secondary">리뷰작성</button></div>
+    <div class="header__write-review">
+        <button type="button" class="btn btn-secondary">리뷰작성</button>
+    </div>
     <div class="header__title">TRIPPERS</div>
-    <div class="header__sign-out">OOO님 환영합니다 <br>로그아웃</br></div>
+    <div class="header__sign-out">
+        <span>OOO님 환영합니다</span>
+        <a href="#" onclick="logout()">로그아웃</a>
+    </div>
 </nav>
+
 <div class="card-columns">
     <div class="card">
         <img class="card-img-top" src="..." alt="Card image cap">
@@ -52,7 +65,7 @@
             <p class="card-text"> 아이디</p>
             <p class="card-text"> 간략한리뷰</p>
         </div>
-       </div>
+    </div>
     <div class="card">
         <img class="card-img-top" src="..." alt="Card image cap">
         <div class="card-body">
@@ -60,7 +73,7 @@
             <p class="card-text"> 아이디</p>
             <p class="card-text"> 간략한리뷰</p>
         </div>
-       </div>
+    </div>
     <div class="card">
         <img class="card-img-top" src="..." alt="Card image cap">
         <div class="card-body">
@@ -68,7 +81,7 @@
             <p class="card-text"> 아이디</p>
             <p class="card-text"> 간략한리뷰</p>
         </div>
-       </div>
+    </div>
     <div class="card">
         <img class="card-img-top" src="..." alt="Card image cap">
         <div class="card-body">
@@ -76,7 +89,7 @@
             <p class="card-text"> 아이디</p>
             <p class="card-text"> 간략한리뷰</p>
         </div>
-       </div>
+    </div>
     <div class="card">
         <img class="card-img-top" src="..." alt="Card image cap">
         <div class="card-body">
@@ -84,7 +97,7 @@
             <p class="card-text"> 아이디</p>
             <p class="card-text"> 간략한리뷰</p>
         </div>
-       </div>
+    </div>
     <div class="card">
         <img class="card-img-top" src="..." alt="Card image cap">
         <div class="card-body">
@@ -92,7 +105,7 @@
             <p class="card-text"> 아이디</p>
             <p class="card-text"> 간략한리뷰</p>
         </div>
-       </div>
+    </div>
     <div class="card">
         <img class="card-img-top" src="..." alt="Card image cap">
         <div class="card-body">
@@ -100,7 +113,7 @@
             <p class="card-text"> 아이디</p>
             <p class="card-text"> 간략한리뷰</p>
         </div>
-       </div>
+    </div>
     <div class="card">
         <img class="card-img-top" src="..." alt="Card image cap">
         <div class="card-body">
@@ -108,7 +121,7 @@
             <p class="card-text"> 아이디</p>
             <p class="card-text"> 간략한리뷰</p>
         </div>
-       </div>
+    </div>
     <div class="card">
         <img class="card-img-top" src="..." alt="Card image cap">
         <div class="card-body">
@@ -116,7 +129,7 @@
             <p class="card-text"> 아이디</p>
             <p class="card-text"> 간략한리뷰</p>
         </div>
-       </div>
+    </div>
 
 
 </body>
