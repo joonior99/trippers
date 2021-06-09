@@ -79,9 +79,53 @@ def sign_in():
 def write_review():
     return render_template("review.html")
 
-@app.route("/go_main")
-def go_main():
-    return render_template("mainpage.html")
+
+@app.route("/posting", methods=["POST"])
+def posting():
+    token_receive = request.cookies.get('mytoken')
+    payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+
+    title_receive = request.form["title_give"]
+    comment_receive = request.form["comment_give"]
+    date_receive = request.form["date_give"]
+    file = request.files["file_give"]
+
+    user_info = db.users.find_one({"userid": payload["id"]})
+    username = user_info["username"]
+    userid = user_info["userid"]
+
+    extension = file.filename.split(".")[-1]
+
+    today = datetime.now()
+    mytime = today.strftime('%Y-%m-%d-%H-%M-%S')
+
+    filename = f"file-{mytime}"
+    save_to = f"static/img/{filename}.{extension}"
+    file.save(save_to)
+
+    doc = {
+        "img_file": f"{filename}.{extension}",
+        "username": username,
+        "userid": userid,
+        "title": title_receive,
+        "comment": comment_receive,
+        "date": date_receive
+    }
+    db.posts.insert_one(doc)
+    return jsonify({"msg": "등록 완료"})
+
+
+@app.route("/get_posts", methods=["GET"])
+def get_posts():
+    token_receive = request.cookies.get("mytoken")
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        posts = list(db.posts.find({}).sort("date", -1).limit(20))
+        for post in posts:
+            post["_id"] = str(post["_id"])
+        return jsonify({"result": "success", "msg": "포스팅을 가져왔습니다.", "posts": posts})
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return redirect(url_for("home"))
 
 
 if __name__ == '__main__':

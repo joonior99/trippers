@@ -1,0 +1,24 @@
+.modal-content {
+    width: 600px;
+    max-width: 80%;
+}
+
+.image-container > img {
+    width: 600px;
+}
+
+.button.is-sparta {
+    background-color: #0984e3;
+    border-color: transparent;
+    color: #fff !important;
+}
+
+.button.is-sparta.is-outlined {
+    background-color: transparent;
+    border-color: #0984e3;
+    color: #0984e3 !important;
+}
+
+.textarea::placeholder {
+    font-size: 15px;
+}

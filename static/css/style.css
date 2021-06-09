@@ -2,7 +2,8 @@
 @import "login.css";
 @import "membership.css";
 @import "mainpage.css";
-@import "review.css";
+/*@import "review.css";*/
+@import "modal.css";
 
 html,
 body {
