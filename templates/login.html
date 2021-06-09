@@ -8,6 +8,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
+    <!-- Font Awesome CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
     <!-- CSS -->
     <link rel="stylesheet" href="../static/css/style.css"/>
 
@@ -58,20 +61,26 @@
 <form id="login-form" class="login-form">
     <h1>Welcome to Trippers</h1>
     <span>로그인 후 이용할 수 있습니다.</span>
-    <input
-            type="text"
-            name="userid"
-            id="userid"
-            class="login-form__input"
-            placeholder="ID"
-    />
-    <input
-            type="password"
-            name="password"
-            id="userpw"
-            class="login-form__input"
-            placeholder="Password"
-    />
+    <div class="login-form__input-box">
+        <input
+                type="text"
+                name="userid"
+                id="userid"
+                class="login-form__input"
+                placeholder="아이디"
+        />
+        <i class="fas fa-user fa" id="icon"></i>
+    </div>
+    <div class="login-form__input-box">
+        <input
+                type="password"
+                name="password"
+                id="userpw"
+                class="login-form__input"
+                placeholder="비밀번호"
+        />
+        <i class="fa fa-lock" id="icon"></i>
+    </div>
     <button type="button" class="login-form__btn" onclick="sign_in()">로그인</button>
     <a href="/membership" class="login-form__sign-up">회원가입</a>
 </form>
