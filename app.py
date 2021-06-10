@@ -1,3 +1,5 @@
+import os
+
 from bson import ObjectId
 from pymongo import MongoClient
 import jwt
@@ -82,10 +84,6 @@ def sign_in():
     else:
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
 
-@app.route("/write_review")
-def write_review():
-    return render_template("review.html")
-
 
 @app.route("/posting", methods=["POST"])
 def posting():
@@ -135,7 +133,7 @@ def get_posts():
         return redirect(url_for("home"))
 
 
-@app.route("/deleteCard", methods=["POST"])
+@app.route("/deleteCard", methods=["DELETE"])
 def delete_card():
     token_receive = request.cookies.get('mytoken')
     payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
@@ -145,9 +143,11 @@ def delete_card():
     id_value_receive = request.form["id_value_give"]
     author_info = db.posts.find_one({"_id": ObjectId(id_value_receive)})
     author_id = author_info["userid"]
+    file_name = author_info["img_file"]
 
     if userid == author_id:
         db.posts.delete_one({"_id": ObjectId(id_value_receive)})
+        os.remove("static/img/" + file_name)
         return jsonify({"msg": "삭제완료!"})
     else:
         return jsonify({"msg": "삭제 권한이 없습니다."})
@@ -185,6 +185,9 @@ def modify_card():
     payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
 
     id_value_receive = request.form["id_value_give"]
+    author_info = db.posts.find_one({"_id": ObjectId(id_value_receive)})
+    file_name = author_info["img_file"]
+
     title_receive = request.form["title_give"]
     comment_receive = request.form["comment_give"]
     file = request.files.get("file_give")
@@ -198,6 +201,7 @@ def modify_card():
     }
 
     if file is not None:
+        os.remove("static/img/" + file_name)
         extension = file.filename.split(".")[-1]
         mytime = today.strftime('%Y-%m-%d-%H-%M-%S')
         filename = f"file-{mytime}"
