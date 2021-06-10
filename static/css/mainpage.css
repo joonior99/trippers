@@ -17,3 +17,8 @@
 .header__sign-out {
     text-align: right;
 }
+
+.card-bottom {
+    display: flex;
+    justify-content: space-between;
+}

@@ -109,6 +109,100 @@
                 reader.readAsDataURL((value.files[0]));
             }
         }
+
+        function setThumbnail2(value) {
+            let file = $("#input-pic2").val().split("\\");
+            let file_name = file[file.length - 1];
+            console.log(file, file_name);
+            $("#file-name2").text(file_name);
+
+            if (value.files && value.files[0]) {
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#preview-image2").attr("src", e.target.result);
+                }
+                reader.readAsDataURL((value.files[0]));
+            }
+        }
+
+        function deleteCard(post_id) {
+            let id_value = post_id;
+
+            $.ajax({
+                type: "POST",
+                url: "/deleteCard",
+                data: {
+                    id_value_give: id_value
+                },
+                success: function (response) {
+                    alert(response["msg"]);
+                    window.location.reload()
+                }
+            });
+        }
+
+        function update(value) {
+            let id_value = value;
+
+            $.ajax({
+                type: "POST",
+                url: "/update",
+                data: {
+                    id_value_give: id_value
+                },
+                success: function (response) {
+                    if (response["result"] == "success") {
+                        $('#modal-post2').addClass('is-active');
+                        title = response["title"];
+                        comment = response["comment"]
+                        file_name = response["file_name"]
+                        {#$("#file-name2").text(file_name);#}
+                        $("#hidden-id").val(value);
+                        $("#post-title2").val(title);
+                        $("#textarea-post2").text(comment);
+                        $("#preview-image2").attr("src", "static/img/" + file_name);
+                    } else {
+                        alert(response["msg"]);
+                        window.location.reload();
+                    }
+                }
+            });
+        }
+
+        function modifyCard() {
+            let id_value = $("#hidden-id").val();
+            let file = $("#input-pic2")[0].files[0];
+            let title = $("#post-title2").val();
+            let comment = $("#textarea-post2").val();
+
+            let form_data = new FormData();
+            console.log(id_value, file, title, comment);
+
+            if (file === undefined) {
+                form_data.append("id_value_give", id_value);
+                form_data.append("title_give", title);
+                form_data.append("comment_give", comment);
+            } else {
+                form_data.append("id_value_give", id_value);
+                form_data.append("file_give", file);
+                form_data.append("title_give", title);
+                form_data.append("comment_give", comment);
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/modify_card",
+                data: form_data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    alert(response["msg"]);
+                    $("#modal-post2").removeClass("is-active")
+                    window.location.reload()
+                }
+            });
+        }
     </script>
 </head>
 
@@ -197,6 +291,7 @@
 
 <div id="card-columns" class="card-columns">
     {% for post in posts %}
+        {% set post_id = post._id %}
         {% set username = post.username %}
         {% set title = post.title %}
         {% set comment = post.comment %}
@@ -211,13 +306,85 @@
                 <div class="card-bottom">
                     <p class="card-text">{{ date }}</p>
                     <div class="buttons">
-                        <button class="button is-info">수정</button>
-                        <button class="button is-danger">삭제</button>
+                        <button class="button is-info" onclick="update('{{ post_id }}')">수정</button>
+                        <button class="button is-danger" onclick="deleteCard('{{ post_id }}')">삭제</button>
                     </div>
                 </div>
             </div>
         </div>
     {% endfor %}
+
+    <div class="modal" id="modal-post2">
+        <div class="modal-background" onclick='$("#modal-post2").removeClass("is-active")'></div>
+        <div class="modal-content">
+            <div class="box">
+                <div class="my-img">
+                    <div id="image-container" class="image-container">
+                        <img id="preview-image2"
+                             src="https://dummyimage.com/500x400/fff/000.png&text=preview+image">
+                    </div>
+                    <div class="control is-expanded">
+                        <div class="file has-name">
+                            <label class="file-label" style="width:100%">
+                                <input id="input-pic2" class="file-input" type="file" accept="image/*"
+                                       name="resume" onchange="setThumbnail2(this)">
+                                <span class="file-cta">
+                        <span class="file-icon">
+                            <i class="fa fa-upload"></i>
+                        </span>
+                        <span class="file-label">파일 선택</span>
+                    </span>
+                                <span id="file-name2" class="file-name" style="width:100%;max-width:100%"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <article class="place">
+                    <div class="media-content">
+                        <div class="level-left">
+                            여행장소
+                        </div>
+                        <div class="field">
+                            <p class="control">
+                                <input id="post-title2" class="input is-normal" type="text"
+                                       placeholder="ex) 파리, 에펠탑 ... etc">
+                            </p>
+                        </div>
+                    </div>
+                </article>
+                <article class="media">
+                    <div class="media-content">
+                        <div class="level-left">
+                            내용
+                        </div>
+                        <div class="field">
+                            <p class="control">
+                            <textarea id="textarea-post2" class="textarea"
+                                      placeholder="ex) 친구와 함께여서 즐거웠던 파리여행!"></textarea>
+                            </p>
+                        </div>
+                        <nav class="level is-mobile">
+                            <div class="level-left">
+
+                            </div>
+                            <div class="level-right">
+                                <div class="level-item">
+                                    <a class="button is-sparta" onclick="modifyCard()">수정하기</a>
+                                </div>
+                                <div class="level-item">
+                                    <a class="button is-sparta is-outlined"
+                                       onclick='$("#modal-post2").removeClass("is-active")'>취소</a>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close"
+                onclick='$("#modal-post2").removeClass("is-active")'></button>
+    </div>
+
 </div>
 </body>
 </html>

@@ -1,3 +1,4 @@
+from bson import ObjectId
 from pymongo import MongoClient
 import jwt
 import datetime
@@ -132,6 +133,80 @@ def get_posts():
         return jsonify({"result": "success", "msg": "포스팅을 가져왔습니다.", "posts": posts})
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("home"))
+
+
+@app.route("/deleteCard", methods=["POST"])
+def delete_card():
+    token_receive = request.cookies.get('mytoken')
+    payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+    user_info = db.users.find_one({"userid": payload["id"]})
+    userid = user_info["userid"]
+
+    id_value_receive = request.form["id_value_give"]
+    author_info = db.posts.find_one({"_id": ObjectId(id_value_receive)})
+    author_id = author_info["userid"]
+
+    if userid == author_id:
+        db.posts.delete_one({"_id": ObjectId(id_value_receive)})
+        return jsonify({"msg": "삭제완료!"})
+    else:
+        return jsonify({"msg": "삭제 권한이 없습니다."})
+
+
+
+@app.route("/update", methods=["POST"])
+def update():
+    token_receive = request.cookies.get('mytoken')
+    payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+
+    # 로그인 계정 정보
+    user_info = db.users.find_one({"userid": payload["id"]})
+    userid = user_info["userid"]
+
+    # 게시물에 대한 정보
+    id_value_receive = request.form["id_value_give"]
+    author_info = db.posts.find_one({"_id": ObjectId(id_value_receive)})
+    author_id = author_info["userid"]
+
+    data = db.posts.find_one({"_id": ObjectId(id_value_receive)})
+    title = data["title"]
+    comment = data["comment"]
+    file_name = data["img_file"]
+
+    if userid == author_id:
+        return jsonify({"result": "success", "title": title, "comment": comment, "file_name": file_name})
+    else:
+        return jsonify({"msg": "수정 권한이 없습니다."})
+
+
+@app.route("/modify_card", methods=["POST"])
+def modify_card():
+    token_receive = request.cookies.get('mytoken')
+    payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+
+    id_value_receive = request.form["id_value_give"]
+    title_receive = request.form["title_give"]
+    comment_receive = request.form["comment_give"]
+    file = request.files.get("file_give")
+
+    today = datetime.now()
+
+    doc = {
+        "title": title_receive,
+        "comment": comment_receive,
+        "date": today.strftime('%Y.%m.%d.%H.%M.%S')
+    }
+
+    if file is not None:
+        extension = file.filename.split(".")[-1]
+        mytime = today.strftime('%Y-%m-%d-%H-%M-%S')
+        filename = f"file-{mytime}"
+        save_to = f"static/img/{filename}.{extension}"
+        file.save(save_to)
+        doc["img_file"] = f"{filename}.{extension}"
+
+    db.posts.update_one({"_id": ObjectId(id_value_receive)}, {"$set": doc})
+    return jsonify({"msg": "수정완료!"})
 
 
 if __name__ == '__main__':
