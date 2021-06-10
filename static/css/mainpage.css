@@ -22,3 +22,32 @@
     display: flex;
     justify-content: space-between;
 }
+
+.card-body__content-box {
+    display: flex;
+    margin-top: 5px;
+}
+
+.card-body__content-box p:first-child {
+    width: 20%;
+    text-align: center;
+    font-weight: 900;
+    color: #747d8c;
+}
+
+.card-body__content-box p:last-child {
+    width: 80%;
+}
+
+.card-bottom > div {
+    display: flex;
+}
+
+.card-bottom > div > p {
+    font-weight: 900;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+}

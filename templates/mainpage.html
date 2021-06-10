@@ -140,15 +140,25 @@
         <div class="card">
             <img class="card-img-top" src="{{ url_for('static', filename='img/' + img_file) }}" alt="Card image cap">
             <div class="card-body">
-                <h5 class="card-title">{{ title }}</h5>
-                <p class="card-text">{{ username }}</p>
-                <p class="card-text">{{ comment }}</p>
-                <div class="card-bottom">
+                <div class="card-body__content-box">
+                    <p>제목</p>
+                    <p class="card-title">{{ title }}</p>
+                </div>
+                <div class="card-body__content-box">
+                    <p>작성자</p>
+                    <p class="card-text">{{ username }}</p>
+                </div>
+                <div class="card-body__content-box">
+                    <p>한줄소개</p>
+                    <p class="card-text">{{ comment }}</p>
+                </div>
+                <div class="card-body__content-box">
+                    <p>작성일</p>
                     <p class="card-text">{{ date }}</p>
-                    <div class="buttons">
-                        <button class="button is-info" onclick="update('{{ post_id }}')">수정</button>
-                        <button class="button is-danger" onclick="deleteCard('{{ post_id }}')">삭제</button>
-                    </div>
+                </div>
+                <div class="buttons">
+                    <button class="button is-info" onclick="update('{{ post_id }}')">수정</button>
+                    <button class="button is-danger" onclick="deleteCard('{{ post_id }}')">삭제</button>
                 </div>
             </div>
         </div>
