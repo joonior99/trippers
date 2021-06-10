@@ -64,6 +64,22 @@ def sign_up():
     return jsonify({"result": "success"})
 
 
+# 닉네임 중복확인
+@app.route("/sign_up/check_name_dup", methods=["POST"])
+def check__name_dup():
+    username_receive = request.form["username_give"]
+    exists = bool(db.users.find_one({"username": username_receive}))
+    return jsonify({"result": "success", "exists": exists})
+
+
+# 아이디 중복확인
+@app.route("/sign_up/check_id_dup", methods=["POST"])
+def check_id_dup():
+    userid_receive = request.form["userid_give"]
+    exists = bool(db.users.find_one({"userid": userid_receive}))
+    return jsonify({"result": "success", "exists": exists})
+
+
 @app.route("/sign_in", methods=["POST"])
 def sign_in():
     userid_receive = request.form["userid_give"]

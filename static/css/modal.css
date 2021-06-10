@@ -8,12 +8,24 @@
 }
 
 .button.is-sparta {
-    background-color: #0984e3;
+    background-color: #70a1ff;
     border-color: transparent;
     color: #fff !important;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.button.is-sparta:hover {
+    background-color: #0069D9;
 }
 
 .button.is-sparta.is-outlined {
+    background-color: transparent;
+    border-color: #70a1ff;
+    color: #70a1ff !important;
+    transition: all 0.3s ease-in-out;
+}
+
+.button.is-sparta.is-outlined:hover {
     background-color: transparent;
     border-color: #0984e3;
     color: #0984e3 !important;
